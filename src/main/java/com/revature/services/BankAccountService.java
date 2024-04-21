@@ -24,7 +24,7 @@ public class BankAccountService {
     public ResponseEntity<Object> getById(int accountId){
         Optional<BankAccount> bankAccount = bankAccountDAO.findById(accountId);
         if (bankAccount.isEmpty()){
-            return ResponseEntity.badRequest().body("AccountId " + accountId " + does not exist");
+            return ResponseEntity.badRequest().body("AccountId " + accountId  + "does not exist");
         }
         return ResponseEntity.ok(bankAccount.get());
     }

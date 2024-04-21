@@ -50,7 +50,7 @@ public class UserService {
         try{
             User existingUser = userDAO.findById(updatedUser.getUserId()).orElse(null);
             if (existingUser == null){
-                return ResponseEntity.notFound().body("UserId " + updatedUser.getUserId() + " does not exist");
+                return ResponseEntity.badRequest().body("UserId " + updatedUser.getUserId() + " does not exist");
             }
             existingUser.setName(updatedUser.getName());
             existingUser.setPassword(updatedUser.getPassword());
