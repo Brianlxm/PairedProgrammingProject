@@ -1,13 +1,12 @@
 package com.revature.models;
-
-
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
 @Entity
-@Table(name = "bank_accounts")
+@Table(name ="bank_accounts")
 @Component
 public class BankAccount {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int accountId;
@@ -20,8 +19,7 @@ public class BankAccount {
     //Boilerplate code -----------------
 
     //constructors
-    public BankAccount(int accountId) {
-        this.accountId = accountId;
+    public BankAccount() {
     }
 
     public BankAccount(int accountId, double accountBalance, User user) {
