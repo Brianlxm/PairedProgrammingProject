@@ -35,7 +35,7 @@ public class UserService {
             return ResponseEntity.ok("User created successfully\n" + newUser);
         } catch (DataIntegrityViolationException e){
             e.printStackTrace();
-            return ResponseEntity.badRequest().body("User with this username already exists");
+            return ResponseEntity.badRequest().body("DataIntegrityViolationException: username/password/name required nullable=false, and username unique=true");
         } catch (Exception e){
             e.printStackTrace();
             return ResponseEntity.internalServerError().body("An unexpected error occurred while processing the request");

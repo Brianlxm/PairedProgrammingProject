@@ -38,9 +38,9 @@ public class BankAccountController {
     //get all accounts that belong to a certain user makes more sense in UserController
 
     // insert a new BankAccount
-    @PostMapping
-    public ResponseEntity<String> addBankAccount(@RequestBody BankAccount bankAccount){
-        return bankAccountService.addBankAccount(bankAccount);
+    @PostMapping("/{userId}")
+    public ResponseEntity<String> addBankAccount(@RequestBody BankAccount bankAccount, @PathVariable int userId){
+        return bankAccountService.addBankAccount(bankAccount, userId);
     }
 
     // Delete a BankAccount while NOT deleting related User

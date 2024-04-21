@@ -1,7 +1,9 @@
 package com.revature.services;
 
 import com.revature.daos.BankAccountDAO;
+import com.revature.daos.UserDAO;
 import com.revature.models.BankAccount;
+import com.revature.models.User;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -14,10 +16,12 @@ import java.util.Optional;
 public class BankAccountService {
 
     private BankAccountDAO bankAccountDAO;
+    private UserDAO userDAO;
 
     @Autowired
-    public BankAccountService(BankAccountDAO bankAccountDAO) {
+    public BankAccountService(BankAccountDAO bankAccountDAO, UserDAO userDAO) {
         this.bankAccountDAO = bankAccountDAO;
+        this.userDAO = userDAO;
     }
 
     // get BankAccount by Id
@@ -33,8 +37,10 @@ public class BankAccountService {
      */
 
     // add bank account
-    public ResponseEntity<String> addBankAccount(BankAccount bankAccount){
+    public ResponseEntity<String> addBankAccount(BankAccount bankAccount, int userId){
         try {
+            User u = userDAO.findById(userId).get();
+            bankAccount.setUser(u);
             BankAccount savedAccount = bankAccountDAO.save(bankAccount);
             String s = ("New BankAccount created with Id " + savedAccount.getAccountId() + "\n" + savedAccount);
             return ResponseEntity.status(201).body(s);
@@ -43,7 +49,7 @@ public class BankAccountService {
         } catch (DataIntegrityViolationException e){
             return ResponseEntity.badRequest().body("Database constraint violation: " + e.getMessage());
         } catch (Exception e){
-            return ResponseEntity.internalServerError().body("Failed to add BankAccount");
+            return ResponseEntity.internalServerError().body("Failed to add BankAccount: userId does not exist");
         }
     }
 
