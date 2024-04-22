@@ -12,7 +12,7 @@ public class BankAccount {
     private int accountId;
     private double accountBalance;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "userId")
     private User user;
 
