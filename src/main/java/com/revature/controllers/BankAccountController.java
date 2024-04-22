@@ -30,7 +30,7 @@ public class BankAccountController {
     }
 
     //get BankAccount by Id
-    @GetMapping("/{bankAccountId}")
+    @GetMapping("/{accountId}")
     public ResponseEntity<Object> getAccountById(@PathVariable int accountId){
         return bankAccountService.getById(accountId);
     }
