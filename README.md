@@ -94,7 +94,8 @@ mvn spring-boot:run
 
     {
         "username": "newuser",
-        ...
+        "password": "password",
+        "name" : "Lebron James"
     }
     ```
   **Response:**
@@ -116,7 +117,8 @@ mvn spring-boot:run
 
     {
         "username": "updateduser",
-        ...
+        "password": "newpassword",
+        "name" : "new name"
     }
     ```
   **Response:**
@@ -139,12 +141,12 @@ mvn spring-boot:run
     [
         {
             "accountId": 1,
-            "accountType": "Savings",
+            "account_balance": "123.45",
             ...
         },
         {
             "accountId": 2,
-            "accountType": "Checking",
+            "account_balance": "123.45",
             ...
         },
         ...
@@ -156,23 +158,23 @@ mvn spring-boot:run
 ### getAllBankAccounts()
 - **Description:** Retrieves all bank accounts from the database.
 - **HTTP Method:** GET
-- **Endpoint:** `/bank-accounts`
+- **Endpoint:** `/bankaccounts`
 - **Response:** Returns a list of `BankAccount` objects.
 - **Example:**
     ```http
-    GET /bank-accounts
+    GET /bankaccounts
     ```
   **Response:**
     ```json
     [
         {
             "accountId": 1,
-            "accountType": "Savings",
+            "account_balance": "123.45",
             ...
         },
         {
             "accountId": 2,
-            "accountType": "Checking",
+            "account_balance": "123.45",
             ...
         },
         ...
@@ -182,18 +184,18 @@ mvn spring-boot:run
 ### getAccountById(int accountId)
 - **Description:** Retrieves a bank account by its ID from the database.
 - **HTTP Method:** GET
-- **Endpoint:** `/bank-accounts/{accountId}`
+- **Endpoint:** `/bankaccounts/{accountId}`
 - **Path Variable:** `accountId` - The ID of the bank account to retrieve.
 - **Response:** Returns the bank account object with the specified ID or an error message if the account is not found.
 - **Example:**
     ```http
-    GET /bank-accounts/123
+    GET /bankaccounts/123
     ```
   **Response:**
     ```json
     {
         "accountId": 123,
-        "accountType": "Savings",
+        "account_balance": "123.45",
         ...
     }
     ```
@@ -201,17 +203,17 @@ mvn spring-boot:run
 ### addBankAccount(BankAccount bankAccount, int userId)
 - **Description:** Inserts a new bank account into the database for a specific user.
 - **HTTP Method:** POST
-- **Endpoint:** `/bank-accounts/{userId}`
+- **Endpoint:** `/bankaccounts/{userId}`
 - **Path Variable:** `userId` - The ID of the user for whom the bank account is being added.
 - **Request Body:** JSON object representing the new bank account.
 - **Response:** Returns a success message or an error message if the bank account addition fails.
 - **Example:**
     ```http
-    POST /bank-accounts/123
+    POST /bankaccounts/123
     Content-Type: application/json
 
     {
-        "accountType": "Savings",
+        "account_balance": "123.45",
         ...
     }
     ```
@@ -223,12 +225,12 @@ mvn spring-boot:run
 ### deleteBankAccount(int accountId)
 - **Description:** Deletes a bank account from the database.
 - **HTTP Method:** DELETE
-- **Endpoint:** `/bank-accounts/{accountId}`
+- **Endpoint:** `/bankaccounts/{accountId}`
 - **Path Variable:** `accountId` - The ID of the bank account to delete.
 - **Response:** Returns a success message or an error message if the bank account deletion fails.
 - **Example:**
     ```http
-    DELETE /bank-accounts/123
+    DELETE /bankaccounts/123
     ```
   **Response:**
     ```json
