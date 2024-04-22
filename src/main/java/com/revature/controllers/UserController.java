@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import com.revature.daos.UserDAO;
+import com.revature.models.BankAccount;
 import com.revature.models.User;
 import com.revature.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,7 @@ public class UserController {
 
     // get all accounts that belong to a certain userId
     @GetMapping("/accounts/{userId}")
-    public ResponseEntity<Object> getAccountsByUserId(@PathVariable int userId){
+    public ResponseEntity<List<BankAccount>> getAccountsByUserId(@PathVariable int userId){
         return userService.getAccountsByUserId(userId);
     }
 

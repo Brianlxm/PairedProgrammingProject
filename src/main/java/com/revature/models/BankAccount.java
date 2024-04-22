@@ -13,7 +13,7 @@ public class BankAccount {
     private double accountBalance;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     private User user;
 
     //Boilerplate code -----------------

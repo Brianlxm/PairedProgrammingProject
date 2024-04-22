@@ -1,8 +1,10 @@
 package com.revature.services;
 
+import com.revature.daos.BankAccountDAO;
 import com.revature.daos.UserDAO;
 import com.revature.models.BankAccount;
 import com.revature.models.User;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +15,15 @@ import java.util.List;
 @Service
 public class UserService {
     private UserDAO userDAO;
+    private BankAccountDAO bankAccountDAO;
+
 
     @Autowired
-    public UserService(UserDAO userDAO) {
+    public UserService(UserDAO userDAO, BankAccountDAO bankAccountDAO) {
         this.userDAO = userDAO;
+        this.bankAccountDAO = bankAccountDAO;
     }
+
 
     // get user by id
     public ResponseEntity<Object> getUserById(int userId){
@@ -50,7 +56,7 @@ public class UserService {
         try{
             User existingUser = userDAO.findById(updatedUser.getUserId()).orElse(null);
             if (existingUser == null){
-                return ResponseEntity.badRequest().body("UserId " + updatedUser.getUserId() + " does not exist");
+                return ResponseEntity.badRequest().body("user_id=" + updatedUser.getUserId() + " does not exist");
             }
             existingUser.setName(updatedUser.getName());
             existingUser.setPassword(updatedUser.getPassword());
@@ -59,7 +65,7 @@ public class UserService {
             return ResponseEntity.ok("User updated successfully\n" + updatedUser);
         } catch (DataIntegrityViolationException e){
             e.printStackTrace();
-            return ResponseEntity.badRequest().body("User update failed due to constraint violations");
+            return ResponseEntity.badRequest().body("User update failed due to data constraint violations");
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.internalServerError().body("An unexpected error occurred while processing the request");
@@ -67,16 +73,9 @@ public class UserService {
     }
 
     //get all BankAccounts that belong to a certain userId
-    public ResponseEntity<Object> getAccountsByUserId(int userId){
+    public ResponseEntity<List<BankAccount>> getAccountsByUserId(int userId){
             User user = userDAO.findById(userId).orElse(null);
-            if (user == null){
-                return ResponseEntity.badRequest().body("UserId " + userId + " does not exist");
-            } else {
-                List<BankAccount> bankAccounts = userDAO.findByUserId(userId);
-                if (bankAccounts.size() == 1) {
-                    return ResponseEntity.ok("There is 1 account with userId " + userId);
-                }
-                return ResponseEntity.ok("There are " + bankAccounts.size() + " accounts with userId " + userId);
-            }
+            List<BankAccount> bankAccounts = bankAccountDAO.findByUserUserId(userId);
+            return ResponseEntity.ok(bankAccounts);
     }
 }

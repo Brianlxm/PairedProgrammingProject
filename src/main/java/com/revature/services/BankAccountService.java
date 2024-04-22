@@ -42,7 +42,7 @@ public class BankAccountService {
             User u = userDAO.findById(userId).get();
             bankAccount.setUser(u);
             BankAccount savedAccount = bankAccountDAO.save(bankAccount);
-            String s = ("New BankAccount created with Id " + savedAccount.getAccountId() + "\n" + savedAccount);
+            String s = ("New BankAccount created: accountId=" + savedAccount.getAccountId() + "\n" + savedAccount);
             return ResponseEntity.status(201).body(s);
         } catch (ConstraintViolationException e){
             return ResponseEntity.badRequest().body("Validation Error: " + e.getMessage());

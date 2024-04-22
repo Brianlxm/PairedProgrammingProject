@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface UserDAO extends JpaRepository<User, Integer> {
-    List<BankAccount> findByUserId(int userId);
+  //  List<BankAccount> findByUserId(int userId);
 }
