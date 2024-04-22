@@ -33,6 +33,209 @@ mvn spring-boot:run
 
 4. Access the application in your web browser at `http://localhost:8080`.
 
+# Documentation
+
+## UserController Class
+### getAllUsers()
+- **Description:** Retrieves all users from the database.
+- **HTTP Method:** GET
+- **Endpoint:** `/users`
+- **Response:** Returns a list of `User` objects.
+- **Example:**
+    ```http
+    GET /users
+    ```
+  **Response:**
+    ```json
+    [
+        {
+            "userId": 1,
+            "username": "example1",
+            ...
+        },
+        {
+            "userId": 2,
+            "username": "example2",
+            ...
+        },
+        ...
+    ]
+    ```
+
+### getUserById(int userId)
+- **Description:** Retrieves a user by their ID from the database.
+- **HTTP Method:** GET
+- **Endpoint:** `/users/{userId}`
+- **Path Variable:** `userId` - The ID of the user to retrieve.
+- **Response:** Returns the user object with the specified ID or an error message if the user is not found.
+- **Example:**
+    ```http
+    GET /users/123
+    ```
+  **Response:**
+    ```json
+    {
+        "userId": 123,
+        "username": "example",
+        ...
+    }
+    ```
+
+### addNewUser(User newUser)
+- **Description:** Adds a new user to the database.
+- **HTTP Method:** POST
+- **Endpoint:** `/users`
+- **Request Body:** JSON object representing the new user.
+- **Response:** Returns a success message or an error message if the user addition fails.
+- **Example:**
+    ```http
+    POST /users
+    Content-Type: application/json
+
+    {
+        "username": "newuser",
+        ...
+    }
+    ```
+  **Response:**
+    ```json
+    "User added successfully"
+    ```
+
+### updateUser(int userId, User updatedUser)
+- **Description:** Updates an existing user in the database.
+- **HTTP Method:** PUT
+- **Endpoint:** `/users/{userId}`
+- **Path Variable:** `userId` - The ID of the user to update.
+- **Request Body:** JSON object representing the updated user.
+- **Response:** Returns a success message or an error message if the user update fails.
+- **Example:**
+    ```http
+    PUT /users/123
+    Content-Type: application/json
+
+    {
+        "username": "updateduser",
+        ...
+    }
+    ```
+  **Response:**
+    ```json
+    "User updated successfully"
+    ```
+
+### getAccountsByUserId(int userId)
+- **Description:** Retrieves all bank accounts associated with a user from the database.
+- **HTTP Method:** GET
+- **Endpoint:** `/users/accounts/{userId}`
+- **Path Variable:** `userId` - The ID of the user whose accounts to retrieve.
+- **Response:** Returns a list of `BankAccount` objects belonging to the specified user.
+- **Example:**
+    ```http
+    GET /users/accounts/123
+    ```
+  **Response:**
+    ```json
+    [
+        {
+            "accountId": 1,
+            "accountType": "Savings",
+            ...
+        },
+        {
+            "accountId": 2,
+            "accountType": "Checking",
+            ...
+        },
+        ...
+    ]
+    ```
+
+## BankAccountController Class
+
+### getAllBankAccounts()
+- **Description:** Retrieves all bank accounts from the database.
+- **HTTP Method:** GET
+- **Endpoint:** `/bank-accounts`
+- **Response:** Returns a list of `BankAccount` objects.
+- **Example:**
+    ```http
+    GET /bank-accounts
+    ```
+  **Response:**
+    ```json
+    [
+        {
+            "accountId": 1,
+            "accountType": "Savings",
+            ...
+        },
+        {
+            "accountId": 2,
+            "accountType": "Checking",
+            ...
+        },
+        ...
+    ]
+    ```
+
+### getAccountById(int accountId)
+- **Description:** Retrieves a bank account by its ID from the database.
+- **HTTP Method:** GET
+- **Endpoint:** `/bank-accounts/{accountId}`
+- **Path Variable:** `accountId` - The ID of the bank account to retrieve.
+- **Response:** Returns the bank account object with the specified ID or an error message if the account is not found.
+- **Example:**
+    ```http
+    GET /bank-accounts/123
+    ```
+  **Response:**
+    ```json
+    {
+        "accountId": 123,
+        "accountType": "Savings",
+        ...
+    }
+    ```
+
+### addBankAccount(BankAccount bankAccount, int userId)
+- **Description:** Inserts a new bank account into the database for a specific user.
+- **HTTP Method:** POST
+- **Endpoint:** `/bank-accounts/{userId}`
+- **Path Variable:** `userId` - The ID of the user for whom the bank account is being added.
+- **Request Body:** JSON object representing the new bank account.
+- **Response:** Returns a success message or an error message if the bank account addition fails.
+- **Example:**
+    ```http
+    POST /bank-accounts/123
+    Content-Type: application/json
+
+    {
+        "accountType": "Savings",
+        ...
+    }
+    ```
+  **Response:**
+    ```json
+    "Bank account added successfully"
+    ```
+
+### deleteBankAccount(int accountId)
+- **Description:** Deletes a bank account from the database.
+- **HTTP Method:** DELETE
+- **Endpoint:** `/bank-accounts/{accountId}`
+- **Path Variable:** `accountId` - The ID of the bank account to delete.
+- **Response:** Returns a success message or an error message if the bank account deletion fails.
+- **Example:**
+    ```http
+    DELETE /bank-accounts/123
+    ```
+  **Response:**
+    ```json
+    "Bank account deleted successfully"
+    ```
+
+
 ## Contributing
 
 Contributions to this project are welcome! If you have any suggestions, bug fixes, or feature requests, please feel free to open an issue or submit a pull request.
