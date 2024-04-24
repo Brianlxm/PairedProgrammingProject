@@ -4,7 +4,7 @@ This is a simple user/bank account management application built using Spring Boo
 
 ## Features
 
-- **User Management**: Allows admin to create accounts with a unique username and password.
+- **User Management**: Allows admin to create user accounts with a unique username and password.
 - **Bank Account Management**: Allows admin to manage bank accounts, including creating new accounts and performing transactions.
 - **Data Persistence**: Utilizes Spring Data JPA for database interaction, ensuring data persistence and retrieval.
 
